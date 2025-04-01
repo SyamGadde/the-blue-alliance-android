@@ -11,6 +11,7 @@ import com.thebluealliance.androidclient.datafeed.APICache;
 import com.thebluealliance.androidclient.helpers.JSONHelper;
 import com.thebluealliance.androidclient.listitems.MatchListElement;
 import com.thebluealliance.androidclient.models.Match;
+import com.thebluealliance.androidclient.models.Team;
 import com.thebluealliance.androidclient.types.ModelType;
 import com.thebluealliance.api.model.IMatchAlliancesContainer;
 import com.thebluealliance.api.model.IMatchVideo;
@@ -92,15 +93,24 @@ public class MatchRenderer implements ModelRenderer<Match, Integer> {
         List<String> redTeams = (alliances != null)
                 ? alliances.getRed().getTeamKeys()
                 : null;
+	String[] redTeamNicknames = null;
+	if (redTeams != null) {
+	    redTeamNicknames = new String[redTeams.size()];
+	    for (int i = 0; i < redTeams.size(); i++) {
+		Team t = mDatafeed.fetchTeam(redTeams.get(i)).toBlocking().first();
+		String nick = (t == null) ? "no name?" : t.getNickname();
+		redTeamNicknames[i] = nick;
+	    }
+	}
         if (redTeams != null && redTeams.size() == 3) {
             redAlliance = new String[]{
-              redTeams.get(0).substring(3),
-              redTeams.get(1).substring(3),
-              redTeams.get(2).substring(3)};
+	      redTeams.get(0).substring(3) + "\n" + redTeamNicknames[0],
+              redTeams.get(1).substring(3) + "\n" + redTeamNicknames[1],
+              redTeams.get(2).substring(3) + "\n" + redTeamNicknames[2]};
         } else if (redTeams != null && redTeams.size() == 2) {
             redAlliance = new String[]{
-              redTeams.get(0).substring(3),
-              redTeams.get(1).substring(3)};
+              redTeams.get(0).substring(3) + "\n" + redTeamNicknames[0],
+              redTeams.get(1).substring(3) + "\n" + redTeamNicknames[1]};
         } else {
             redAlliance = new String[]{"", "", ""};
         }
@@ -108,15 +118,24 @@ public class MatchRenderer implements ModelRenderer<Match, Integer> {
         List<String> blueTeams = (alliances != null)
                                 ? alliances.getBlue().getTeamKeys()
                                 : null;
+	String[] blueTeamNicknames = null;
+	if (blueTeams != null) {
+	    blueTeamNicknames = new String[blueTeams.size()];
+	    for (int i = 0; i < blueTeams.size(); i++) {
+		Team t = mDatafeed.fetchTeam(blueTeams.get(i)).toBlocking().first();
+		String nick = (t == null) ? "null team?" : t.getNickname();
+		blueTeamNicknames[i] = nick;
+	    }
+	}
         if (blueTeams != null && blueTeams.size() == 3) {
             blueAlliance = new String[]{
-              blueTeams.get(0).substring(3),
-              blueTeams.get(1).substring(3),
-              blueTeams.get(2).substring(3)};
+              blueTeams.get(0).substring(3) + "\n" + blueTeamNicknames[0],
+              blueTeams.get(1).substring(3) + "\n" + blueTeamNicknames[1],
+              blueTeams.get(2).substring(3) + "\n" + blueTeamNicknames[2]};
         } else if (blueTeams != null && blueTeams.size() == 2) {
             blueAlliance = new String[]{
-              blueTeams.get(0).substring(3),
-              blueTeams.get(1).substring(3)};
+              blueTeams.get(0).substring(3) + "\n" + blueTeamNicknames[0],
+              blueTeams.get(1).substring(3) + "\n" + blueTeamNicknames[1]};
         } else {
             blueAlliance = new String[]{"", "", ""};
         }
