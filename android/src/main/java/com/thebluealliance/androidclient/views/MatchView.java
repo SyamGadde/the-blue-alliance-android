@@ -96,7 +96,7 @@ public class MatchView extends FrameLayout {
 	String tname = tsplit[0];
 	if (tsplit.length > 1) {
 	    String tnick = tsplit[1];
-	    return Html.fromHtml(tname + "<br/><small>" + tnick + "<small>");
+	    return Html.fromHtml(tname + "<br/><small><small>" + tnick + "</small></small>");
 	} else {
 	    return Html.fromHtml(tname);
 	}
