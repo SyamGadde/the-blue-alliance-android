@@ -116,7 +116,7 @@ public class MatchView extends FrameLayout {
         }
 
         matchTitle.setTag(matchKey);
-        red1.setLines(1);  // To prevent layout issues when ListView recycles items
+        red1.setLines(2);  // To prevent layout issues when ListView recycles items
 
         if (!redScore.contains("?") && !blueScore.contains("?")) {
             try {
