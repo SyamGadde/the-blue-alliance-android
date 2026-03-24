@@ -492,7 +492,7 @@ cmd_beta() {
     info "Promoting phone app alpha → beta..."
     run ./gradlew :app:promoteReleaseArtifact --from-track alpha --promote-track beta
     info "Promoting wear app alpha → beta..."
-    run ./gradlew :wear:promoteReleaseArtifact --from-track alpha --promote-track beta
+    run ./gradlew :wear:promoteReleaseArtifact --from-track "wear:alpha" --promote-track "wear:beta"
 
     info "Returning to ${original_ref}..."
     run git checkout "$original_ref"
@@ -558,7 +558,7 @@ cmd_production() {
     info "Promoting phone app beta → production..."
     run ./gradlew :app:promoteReleaseArtifact --from-track beta --promote-track production
     info "Promoting wear app beta → production..."
-    run ./gradlew :wear:promoteReleaseArtifact --from-track beta --promote-track production
+    run ./gradlew :wear:promoteReleaseArtifact --from-track "wear:beta" --promote-track "wear:production"
 
     info "Publishing store listing..."
     run ./gradlew :app:publishReleaseListing

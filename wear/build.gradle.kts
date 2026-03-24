@@ -100,7 +100,7 @@ android {
 
 play {
     serviceAccountCredentials.set(rootProject.file(localProperties.getProperty("play.service.account.key", "play-service-account.json")))
-    track.set("alpha")
+    track.set("wear:alpha")
     defaultToAppBundles.set(true)
 }
 
